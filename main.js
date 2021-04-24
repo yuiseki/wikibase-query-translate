@@ -17,9 +17,9 @@ const getProperty = async (word) => {
   });
   const res = await fetch(url);
   const json = await res.json();
-  const result = json.search.filter((i) => { return i.label === word; })
-  return result[0].id
-}
+  const result = json.search.filter((i) => { return i.label === word; });
+  return result[0].id;
+};
 
 const getRedirectedSitelinkTitle = async (word) => {
   const lang = 'ja';
@@ -29,7 +29,7 @@ const getRedirectedSitelinkTitle = async (word) => {
   const res = await fetch(url);
   const json = await res.json();
   return json.query.pages[Object.keys(json.query.pages)[0]].title;
-}
+};
 
 const getQualifier = async (word) => {
   const title = await getRedirectedSitelinkTitle(word);
@@ -42,7 +42,7 @@ const getQualifier = async (word) => {
   const res = await fetch(url);
   const json = await res.json();
   return Object.keys(json.entities)[0];
-}
+};
 
 const getQualifiers = async (words) => {
   let qualifiers = [];
@@ -50,7 +50,7 @@ const getQualifiers = async (words) => {
     qualifiers.push(await getQualifier(word));
   }
   return qualifiers.join(',');
-}
+};
 
 const translateClaim = async (claim) => {
   const not_claim = (claim.indexOf('~') === 0);
@@ -73,7 +73,7 @@ const translateClaim = async (claim) => {
     }
     return query;
   } else {
-    let property = claim
+    let property = claim;
     if (not_claim) {
       property = property.replace('~', '');
     }
@@ -84,7 +84,7 @@ const translateClaim = async (claim) => {
     }
     return query;
   }
-}
+};
 
 const translateClaimString = async (claimString) => {
   let translatedQuery = '';
@@ -96,7 +96,7 @@ const translateClaimString = async (claimString) => {
     }
   }
   return translatedQuery;
-}
+};
 exports.translateClaimString = translateClaimString;
 
 if (require.main === module) {
